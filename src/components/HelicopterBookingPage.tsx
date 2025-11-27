@@ -329,7 +329,7 @@ const HelicopterBookingPage = () => {
                             Your Custom Helicopter Charter
                          </h3>
                          <p className="text-muted-foreground">
-                            Choose your route, choose your time. Explore Nagaland on your own terms.
+                            Choose your route, choose your time. Fly anywhere across Nagaland.
                          </p>
                       </div>
 

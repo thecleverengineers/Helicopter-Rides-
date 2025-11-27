@@ -1,8 +1,8 @@
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
+import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { Check, Star, Shield, Award, Clock } from 'lucide-react';
-import heroImage from '@/assets/hero-helicopter.jpg';
+import heroImage from '@/assets/hero.jpg';
 import hornbillPackageImage from '@/assets/package-hornbill.jpg';
 import dzukouPackageImage from '@/assets/package-dzukou.jpg';
 import kohimaPackageImage from '@/assets/package-kohima.jpg';
@@ -11,7 +11,9 @@ import kigwemaPackageImage from '@/assets/package-kigwema.jpg';
 interface Package {
   id: string;
   name: string;
+  subName?: string;
   price: number;
+  originalPrice: number;
   priceDetails: string;
   duration: string;
   features: string[];
@@ -24,16 +26,17 @@ interface Package {
 const packages: Package[] = [
   {
     id: 'shuttle-dimapur',
-    name: 'Shuttle Services (Dimapur)',
-    price: 26999,
-    priceDetails: 'per seat (one way)',
-    duration: '15 mins (one way)',
+    name: 'Shuttle Services',
+    subName: 'Kohima → Dimapur → Kohima',
+    price: 21599,
+    originalPrice: 26999,
+    priceDetails: 'per seat (One-Way)',
+    duration: '15 mins',
     features: [
       '01st - 10th Dec',
-      'Kohima ↔ Dimapur',
       '06:30 AM – 07:00 AM',
       'Priority boarding',
-      '12 seats total'
+      'Fastest connectivity'
     ],
     badgeText: 'Premium Transfer',
     badgeVariant: 'premium',
@@ -41,52 +44,93 @@ const packages: Package[] = [
     buttonText: 'Book Now'
   },
   {
-    id: 'hornbill-aerial',
-    name: 'Hornbill Aerial Experience',
-    price: 4800,
+    id: 'hornbill-slot1',
+    name: 'Hornbill Joyride',
+    subName: 'Slot 1: Morning',
+    price: 3840,
+    originalPrice: 4800,
     priceDetails: 'per seat',
-    duration: '6-7 mins (Joyride)',
+    duration: '6-7 mins',
     features: [
       '27th Nov - 10th Dec',
       'Kohima ↔ Kisama',
-      'Slot 1: 09 AM – 12 PM',
-      'Slot 2: 12 PM – 04 PM',
+      '09:00 AM – 12:00 PM',
       'Kisama Heritage View'
     ],
-    badgeText: 'Most Popular',
+    badgeText: 'Morning Slot',
     badgeVariant: 'exclusive',
     image: hornbillPackageImage,
-    buttonText: 'Book Now'
+    buttonText: 'Book Slot 1'
   },
   {
-    id: 'dzukou-valley',
-    name: 'Dzükōu Valley Experience',
-    price: 9999,
+    id: 'hornbill-slot2',
+    name: 'Hornbill Joyride',
+    subName: 'Slot 2: Afternoon',
+    price: 3840,
+    originalPrice: 4800,
     priceDetails: 'per seat',
-    duration: '15-17 mins (Joyride)',
+    duration: '6-7 mins',
+    features: [
+      '27th Nov - 10th Dec',
+      'Kohima ↔ Kisama',
+      '12:00 PM – 04:00 PM',
+      'Kisama Heritage View'
+    ],
+    badgeText: 'Afternoon Slot',
+    badgeVariant: 'exclusive',
+    image: hornbillPackageImage,
+    buttonText: 'Book Slot 2'
+  },
+  {
+    id: 'dzukou-slot1',
+    name: 'Dzükōu Valley',
+    subName: 'Slot 1: Morning',
+    price: 7999,
+    originalPrice: 9999,
+    priceDetails: 'per seat',
+    duration: '15-17 mins',
     features: [
       '01st - 10th Dec',
       'Kohima ↔ Dzükōu',
-      'Slot 1: 09 AM – 12 PM',
-      'Slot 2: 12 PM – 04 PM',
+      '09:00 AM – 12:00 PM',
       'Valley View (No land)'
     ],
-    badgeText: 'Scenic Wonder',
+    badgeText: 'Scenic Morning',
     badgeVariant: 'luxury',
     image: dzukouPackageImage,
-    buttonText: 'Book Now'
+    buttonText: 'Book Slot 1'
+  },
+  {
+    id: 'dzukou-slot2',
+    name: 'Dzükōu Valley',
+    subName: 'Slot 2: Afternoon',
+    price: 7999,
+    originalPrice: 9999,
+    priceDetails: 'per seat',
+    duration: '15-17 mins',
+    features: [
+      '01st - 10th Dec',
+      'Kohima ↔ Dzükōu',
+      '12:00 PM – 04:00 PM',
+      'Valley View (No land)'
+    ],
+    badgeText: 'Golden Hour',
+    badgeVariant: 'luxury',
+    image: dzukouPackageImage,
+    buttonText: 'Book Slot 2'
   },
   {
     id: 'shuttle-kigwema',
-    name: 'Shuttle Service (Kigwema)',
-    price: 6999,
+    name: 'Shuttle Services',
+    subName: 'Kigwema Sector',
+    price: 5599,
+    originalPrice: 6999,
     priceDetails: 'per seat (Round Trip)',
-    duration: '8-10 mins (Round)',
+    duration: '8-10 mins',
     features: [
       '01st - 10th Dec',
       'Kohima ↔ Kigwema',
-      '09:00 AM – 09:30 AM',
-      '12:00 PM – 12:30 PM',
+      'Morning & Noon Slots',
       'Fast connectivity'
     ],
     badgeText: 'Best Value',
@@ -122,7 +166,7 @@ const HelicopterBookingPage = () => {
             Hornbill Above the Clouds
           </h1>
           <p className="text-lg md:text-xl text-white/90 mb-8 max-w-2xl mx-auto animate-fade-in" style={{ animationDelay: '0.2s' }}>
-            Discover the festival, the valleys, and the hills of Nagaland from the sky.
+            Discover the festival, the valleys, and the hills of Nagaland from the sky.
           </p>
           <Button 
             size="lg"
@@ -142,20 +186,25 @@ const HelicopterBookingPage = () => {
             <h2 className="text-3xl font-bold mb-3">
               Helicopter Rides & Shuttles
             </h2>
-            <p className="text-muted-foreground">
-              Exclusive flights for Hornbill Festival 2025
-            </p>
+            <div className="flex flex-col items-center gap-2">
+              <p className="text-muted-foreground">
+                Exclusive flights for Hornbill Festival 2025
+              </p>
+              <Badge variant="outline" className="border-green-600 text-green-700 bg-green-50 px-3 py-1 text-sm font-medium">
+                🎉 20% Festival Discount Applied
+              </Badge>
+            </div>
           </div>
 
-          {/* Grid Layout: Changed to 4 columns on Large screens for compactness */}
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+          {/* Grid Layout: 3 columns for 6 cards (2 rows) */}
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
             {packages.map((pkg, index) => (
               <Card 
                 key={pkg.id} 
                 className="relative flex flex-col overflow-hidden transition-all duration-300 hover:shadow-lg hover:-translate-y-1 border-muted"
                 style={{ animationDelay: `${index * 0.1}s` }}
               >
-                {/* Badge - Smaller */}
+                {/* Badge */}
                 <div className="absolute top-3 right-3 z-10">
                   <Badge 
                     className={`text-xs px-2 py-0.5 ${
@@ -169,7 +218,7 @@ const HelicopterBookingPage = () => {
                   </Badge>
                 </div>
                 
-                {/* Image - Reduced Height */}
+                {/* Image */}
                 <div className="h-40 overflow-hidden">
                   <img 
                     src={pkg.image} 
@@ -179,12 +228,29 @@ const HelicopterBookingPage = () => {
                 </div>
 
                 <CardHeader className="p-4 pb-2">
-                  <CardTitle className="text-lg font-bold leading-tight min-h-[44px]">
-                    {pkg.name}
-                  </CardTitle>
+                  <div className="min-h-[50px]">
+                    <CardTitle className="text-lg font-bold leading-tight">
+                      {pkg.name}
+                    </CardTitle>
+                    {pkg.subName && (
+                      <p className="text-sm font-medium text-accent mt-0.5">{pkg.subName}</p>
+                    )}
+                  </div>
+                  
                   <div className="mt-2">
-                    <div className="flex items-baseline gap-1">
-                      <span className="text-2xl font-bold text-foreground">₹{pkg.price.toLocaleString()}</span>
+                    {/* Price Display */}
+                    <div className="flex flex-col">
+                      <div className="flex items-center gap-2">
+                         <span className="text-xs text-muted-foreground line-through decoration-red-500/50">
+                           ₹{pkg.originalPrice.toLocaleString()}
+                         </span>
+                         <Badge variant="secondary" className="text-[10px] px-1.5 py-0 h-5 bg-red-100 text-red-700 hover:bg-red-100 border-red-200">
+                           20% OFF
+                         </Badge>
+                      </div>
+                      <div className="flex items-baseline gap-1">
+                        <span className="text-2xl font-bold text-foreground">₹{pkg.price.toLocaleString()}</span>
+                      </div>
                     </div>
                     <p className="text-xs text-muted-foreground">{pkg.priceDetails}</p>
                     

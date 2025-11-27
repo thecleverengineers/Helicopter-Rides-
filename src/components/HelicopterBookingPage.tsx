@@ -1,7 +1,7 @@
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
-import { Check, Star, Shield, Award, Clock } from 'lucide-react';
+import { Check, Star, Shield, Award, Clock, MapPin, Users, Crown } from 'lucide-react';
 import heroImage from '@/assets/hero.jpg';
 import hornbillPackageImage from '@/assets/package-hornbill.jpg';
 import dzukouPackageImage from '@/assets/package-dzukou.jpg';
@@ -142,9 +142,14 @@ const packages: Package[] = [
 
 const HelicopterBookingPage = () => {
   const BOOKING_URL = "https://helitaxii.com/bookwithus?tab=HORNBILL&utm_source=ahibi.in";
+  const CUSTOM_BOOKING_URL = "https://helitaxii.com/bookwithus?tab=HORNBILL&utm_source=ahibi.in";
 
   const handleBookRedirect = () => {
     window.open(BOOKING_URL, '_blank');
+  };
+
+  const handleCustomRedirect = () => {
+    window.open(CUSTOM_BOOKING_URL, '_blank');
   };
 
   const scrollToPackages = () => {
@@ -171,7 +176,8 @@ const HelicopterBookingPage = () => {
           <Button 
             size="lg"
             onClick={scrollToPackages}
-            className="bg-accent text-accent-foreground hover:bg-accent/90 font-semibold px-8 animate-fade-in"
+            // Changed to red
+            className="bg-red-500 text-white hover:bg-red-700 font-semibold px-8 animate-fade-in"
             style={{ animationDelay: '0.3s' }}
           >
             View Packages
@@ -196,8 +202,8 @@ const HelicopterBookingPage = () => {
             </div>
           </div>
 
-          {/* Grid Layout: 3 columns for 6 cards (2 rows) */}
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {/* Grid Layout: 3 columns for 6 cards */}
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-16">
             {packages.map((pkg, index) => (
               <Card 
                 key={pkg.id} 
@@ -275,7 +281,8 @@ const HelicopterBookingPage = () => {
 
                 <CardFooter className="p-4 pt-0">
                   <Button 
-                    className="w-full h-10 text-sm font-semibold"
+                    // Changed to red
+                    className="w-full h-10 text-sm font-semibold bg-red-500 hover:bg-red-700 text-white"
                     onClick={handleBookRedirect}
                   >
                     {pkg.buttonText}
@@ -283,6 +290,90 @@ const HelicopterBookingPage = () => {
                 </CardFooter>
               </Card>
             ))}
+          </div>
+
+          {/* New Custom Charter Section */}
+          <div className="mb-16 animate-fade-in">
+             <div className="flex items-center gap-4 mb-6">
+                <div className="h-px bg-border flex-grow"></div>
+                <h3 className="text-2xl font-bold text-center flex items-center gap-2">
+                   <Crown className="w-6 h-6 text-amber-500" /> 
+                   Private Charter Experience
+                </h3>
+                <div className="h-px bg-border flex-grow"></div>
+             </div>
+
+             <Card className="overflow-hidden border-2 border-primary/10 bg-gradient-to-br from-background to-primary/5">
+                <div className="grid md:grid-cols-5 gap-0">
+                   {/* Left: Image */}
+                   <div className="md:col-span-2 relative h-64 md:h-auto overflow-hidden">
+                      <img 
+                        src={heroImage} 
+                        alt="Private Charter" 
+                        className="w-full h-full object-cover transition-transform duration-700 hover:scale-105"
+                      />
+                      <div className="absolute inset-0 bg-black/40 flex items-center justify-center">
+                         <div className="text-center p-4">
+                            <Badge className="bg-red-500 text-white border-none text-sm px-3 py-1 mb-2">
+                               VIP Experience
+                            </Badge>
+                            <h4 className="text-white text-xl font-bold">Fly Anywhere</h4>
+                         </div>
+                      </div>
+                   </div>
+
+                   {/* Right: Content */}
+                   <div className="md:col-span-3 p-6 md:p-8 flex flex-col justify-center">
+                      <div className="mb-6">
+                         <h3 className="text-2xl md:text-3xl font-bold text-foreground mb-2">
+                            Your Custom Helicopter Charter
+                         </h3>
+                         <p className="text-muted-foreground">
+                            Choose your route, choose your time. Explore Nagaland on your own terms.
+                         </p>
+                      </div>
+
+                      {/* Charter Pricing */}
+                      <div className="grid grid-cols-2 gap-4 mb-6">
+                         <div className="bg-background rounded-lg p-4 border shadow-sm">
+                            <div className="text-sm text-muted-foreground mb-1">30 Minutes</div>
+                            <div className="text-xl md:text-2xl font-bold text-primary">₹1,00,000</div>
+                         </div>
+                         <div className="bg-background rounded-lg p-4 border shadow-sm">
+                            <div className="text-sm text-muted-foreground mb-1">60 Minutes</div>
+                            <div className="text-xl md:text-2xl font-bold text-primary">₹2,00,000</div>
+                         </div>
+                      </div>
+
+                      <div className="grid md:grid-cols-2 gap-y-2 gap-x-4 mb-8">
+                         <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                            <Users className="w-4 h-4 text-accent" /> Up to 5 passengers per flight
+                         </div>
+                         <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                            <MapPin className="w-4 h-4 text-accent" /> Customisable aerial route accross Nagaland
+                         </div>
+                         <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                            <Check className="w-4 h-4 text-accent" /> Priority boarding & assistance
+                         </div>
+                         <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                            <Check className="w-4 h-4 text-accent" /> Private helicopter for your group
+                         </div>
+                      </div>
+
+                      <Button 
+                        size="lg" 
+                        // Changed to red
+                        className="w-full md:w-auto bg-red-500 text-white hover:bg-red-700"
+                        onClick={handleCustomRedirect}
+                      >
+                         Book Custom Charter
+                      </Button>
+                      <p className="text-xs text-center md:text-left text-muted-foreground mt-3">
+                         Book directly at <a href="https://www.ahibi.in" className="underline hover:text-primary">www.ahibi.in</a>
+                      </p>
+                   </div>
+                </div>
+             </Card>
           </div>
 
           {/* Compact Trust Elements */}

@@ -368,8 +368,8 @@ const HelicopterBookingPage = () => {
                       >
                          Book Custom Charter
                       </Button>
-                      <p className="text-xs text-center md:text-left text-muted-foreground mt-3">
-                         Book directly at <a href="https://www.ahibi.in" className="underline hover:text-primary">www.ahibi.in</a>
+                      <p className="py-4">
+                         
                       </p>
                    </div>
                 </div>

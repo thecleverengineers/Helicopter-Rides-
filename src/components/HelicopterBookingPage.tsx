@@ -21,6 +21,7 @@ interface Package {
   badgeVariant: 'premium' | 'luxury' | 'exclusive' | 'default';
   image: string;
   buttonText: string;
+  hasDiscount: boolean;
 }
 
 const packages: Package[] = [
@@ -28,7 +29,7 @@ const packages: Package[] = [
     id: 'shuttle-dimapur',
     name: 'Shuttle Services',
     subName: 'Kohima → Dimapur → Kohima',
-    price: 21599,
+    price: 26999, // Updated to original price
     originalPrice: 26999,
     priceDetails: 'per seat (One-Way)',
     duration: '15 mins',
@@ -41,7 +42,8 @@ const packages: Package[] = [
     badgeText: 'Premium Transfer',
     badgeVariant: 'premium',
     image: kohimaPackageImage,
-    buttonText: 'Book Now'
+    buttonText: 'Book Now',
+    hasDiscount: false // No discount for this package
   },
   {
     id: 'hornbill-slot1',
@@ -60,7 +62,8 @@ const packages: Package[] = [
     badgeText: 'Morning Slot',
     badgeVariant: 'exclusive',
     image: hornbillPackageImage,
-    buttonText: 'Book Slot 1'
+    buttonText: 'Book Slot 1',
+    hasDiscount: true
   },
   {
     id: 'hornbill-slot2',
@@ -79,7 +82,8 @@ const packages: Package[] = [
     badgeText: 'Afternoon Slot',
     badgeVariant: 'exclusive',
     image: hornbillPackageImage,
-    buttonText: 'Book Slot 2'
+    buttonText: 'Book Slot 2',
+    hasDiscount: true
   },
   {
     id: 'dzukou-slot1',
@@ -98,7 +102,8 @@ const packages: Package[] = [
     badgeText: 'Scenic Morning',
     badgeVariant: 'luxury',
     image: dzukouPackageImage,
-    buttonText: 'Book Slot 1'
+    buttonText: 'Book Slot 1',
+    hasDiscount: true
   },
   {
     id: 'dzukou-slot2',
@@ -117,13 +122,14 @@ const packages: Package[] = [
     badgeText: 'Golden Hour',
     badgeVariant: 'luxury',
     image: dzukouPackageImage,
-    buttonText: 'Book Slot 2'
+    buttonText: 'Book Slot 2',
+    hasDiscount: true
   },
   {
     id: 'shuttle-kigwema',
     name: 'Shuttle Services',
     subName: 'Kigwema Sector',
-    price: 5599,
+    price: 6999, // Updated to original price
     originalPrice: 6999,
     priceDetails: 'per seat (Round Trip)',
     duration: '8-10 mins',
@@ -136,7 +142,8 @@ const packages: Package[] = [
     badgeText: 'Best Value',
     badgeVariant: 'default',
     image: kigwemaPackageImage,
-    buttonText: 'Book Now'
+    buttonText: 'Book Now',
+    hasDiscount: false // No discount for this package
   }
 ];
 
@@ -176,7 +183,6 @@ const HelicopterBookingPage = () => {
           <Button 
             size="lg"
             onClick={scrollToPackages}
-            // Changed to red
             className="bg-red-500 text-white hover:bg-red-700 font-semibold px-8 animate-fade-in"
             style={{ animationDelay: '0.3s' }}
           >
@@ -246,24 +252,28 @@ const HelicopterBookingPage = () => {
                   <div className="mt-2">
                     {/* Price Display */}
                     <div className="flex flex-col">
-                      <div className="flex items-center gap-2">
-                         <span className="text-xs text-muted-foreground line-through decoration-red-500/50">
-                           ₹{pkg.originalPrice.toLocaleString()}
-                         </span>
-                         <Badge variant="secondary" className="text-[10px] px-1.5 py-0 h-5 bg-red-100 text-red-700 hover:bg-red-100 border-red-200">
-                           20% OFF
-                         </Badge>
-                      </div>
+                      {/* Conditional rendering for discount badge and original price */}
+                      {pkg.hasDiscount && (
+                        <div className="flex items-center gap-2">
+                           <span className="text-xs text-muted-foreground line-through decoration-red-500/50">
+                             ₹{pkg.originalPrice.toLocaleString()}
+                           </span>
+                           <Badge variant="secondary" className="text-[10px] px-1.5 py-0 h-5 bg-red-100 text-red-700 hover:bg-red-100 border-red-200">
+                             20% OFF
+                           </Badge>
+                        </div>
+                      )}
+                      
+                      {/* If no discount, add a spacer to align with discounted cards if needed, or leave empty */}
+                      {!pkg.hasDiscount && (
+                         <div className="h-[22px]"></div> // Spacer to keep title/price alignment consistent
+                      )}
+
                       <div className="flex items-baseline gap-1">
                         <span className="text-2xl font-bold text-foreground">₹{pkg.price.toLocaleString()}</span>
                       </div>
                     </div>
                     <p className="text-xs text-muted-foreground">{pkg.priceDetails}</p>
-                    
-                    {/* <div className="flex items-center gap-1.5 mt-2 text-primary/80 text-xs font-medium bg-primary/5 p-1.5 rounded w-fit">
-                      <Clock className="w-3.5 h-3.5" />
-                      <span>{pkg.duration}</span>
-                    </div> */}
                   </div>
                 </CardHeader>
 
@@ -281,7 +291,6 @@ const HelicopterBookingPage = () => {
 
                 <CardFooter className="p-4 pt-0">
                   <Button 
-                    // Changed to red
                     className="w-full h-10 text-sm font-semibold bg-red-500 hover:bg-red-700 text-white"
                     onClick={handleBookRedirect}
                   >
@@ -362,7 +371,6 @@ const HelicopterBookingPage = () => {
 
                       <Button 
                         size="lg" 
-                        // Changed to red
                         className="w-full md:w-auto bg-red-500 text-white hover:bg-red-700"
                         onClick={handleCustomRedirect}
                       >

@@ -260,10 +260,10 @@ const HelicopterBookingPage = () => {
                     </div>
                     <p className="text-xs text-muted-foreground">{pkg.priceDetails}</p>
                     
-                    <div className="flex items-center gap-1.5 mt-2 text-primary/80 text-xs font-medium bg-primary/5 p-1.5 rounded w-fit">
+                    {/* <div className="flex items-center gap-1.5 mt-2 text-primary/80 text-xs font-medium bg-primary/5 p-1.5 rounded w-fit">
                       <Clock className="w-3.5 h-3.5" />
                       <span>{pkg.duration}</span>
-                    </div>
+                    </div> */}
                   </div>
                 </CardHeader>
 
@@ -409,8 +409,12 @@ const HelicopterBookingPage = () => {
           </div>
           
           <div className="flex gap-6">
+            <p className="hover:text-accent transition-colors">Direct booking? Call now</p>
+            <p className="hover:text-accent transition-colors">+91 8530004309</p>
+          </div>
+          <div className="flex gap-6">
             <a href="mailto:info@helitaxii.com" className="hover:text-accent transition-colors">info@helitaxii.com</a>
-            <a href="tel:+919400399999" className="hover:text-accent transition-colors">+91-9400399999</a>
+            <a href="tel:+919400399999" className="hover:text-accent transition-colors">+91 9400399999</a>
           </div>
           
           <div className="opacity-60 text-xs">
